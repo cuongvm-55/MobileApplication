@@ -16,7 +16,6 @@ import org.json.JSONObject;
 
 import com.luvsoft.entities.Episode;
 import com.luvsoft.facades.EpisodeFacade;
-import com.luvsoft.utils.MongoDBConnection;
 
 // URL: http://localhost:8080/WEBAPP_REST_PROJECT/rest/demoservice/service_name
 @Path("/demoservice")
@@ -36,18 +35,22 @@ public class HelloService {
          */
         EpisodeFacade episodeFacade = new EpisodeFacade();
         List<Episode> list = new ArrayList<Episode> ();
+        JSONArray ja = new JSONArray();
         if( !episodeFacade.getEpisodeByMovieId(movieId, list) )
         {
-        	System.err.printf("Get episode list fail, Movie Id: %s", movieId);
-        	
+        	JSONObject errJsonobject = new JSONObject();
+        	errJsonobject.put("ERROR", "No corresponding episode list...");
+            ja.put(errJsonobject);
+        	System.out.printf("Get episode list fail, Movie Id: %s", movieId);
         }
-
-        JSONArray ja = new JSONArray();
-        for (Episode movie : list) {
-            JSONObject jsonobject = new JSONObject();
-            jsonobject.put("ID", movie.getId());
-            jsonobject.put("NAME", movie.getResource());
-            ja.put(jsonobject);
+        else
+        {
+	        for (Episode movie : list) {
+	            JSONObject jsonobject = new JSONObject();
+	            jsonobject.put("ID", movie.getId());
+	            jsonobject.put("NAME", movie.getResource());
+	            ja.put(jsonobject);
+	        }
         }
         return Response.status(200).entity(ja.toString()).build();
     }
@@ -61,18 +64,20 @@ public class HelloService {
     public Response getEpisode(@PathParam("episodeId") String episodeId) throws JSONException {
         EpisodeFacade episodeFacade = new EpisodeFacade();
         Episode episode = new Episode();
+        JSONArray ja = new JSONArray();
         if( !episodeFacade.findById(episodeId, episode) )
         {
-        	System.err.printf("Get episode fail, Episode Id: %s", episodeId);
-        	
+        	System.out.printf("Get episode fail, Episode Id: %s", episodeId);
+        	JSONObject errJsonobject = new JSONObject();
+        	errJsonobject.put("ERROR", "Episode not found...");
+            ja.put(errJsonobject);
         }
-
-        JSONArray ja = new JSONArray();
-        JSONObject jsonobject = new JSONObject();
-        jsonobject.put("ID", episode.getId());
-        jsonobject.put("NAME", episode.getResource());
-        ja.put(jsonobject);
+        else{
+	        JSONObject jsonobject = new JSONObject();
+	        jsonobject.put("ID", episode.getId());
+	        jsonobject.put("NAME", episode.getResource());
+	        ja.put(jsonobject);
+	        }
         return Response.status(200).entity(ja.toString()).build();
     }
-
 }

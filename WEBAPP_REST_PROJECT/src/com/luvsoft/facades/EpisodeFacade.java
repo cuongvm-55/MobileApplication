@@ -22,8 +22,13 @@ public class EpisodeFacade extends AbstractFacade {
     }
 
     public boolean getEpisodeByMovieId(String id, List<Episode> ret) {
-        BasicDBObject query = new BasicDBObject();
-        query.put(DatabaseTags.TAG_MOVIE_ID, new ObjectId(id));
-        return findByQuery(query, ret);
+        try {
+        	BasicDBObject query = new BasicDBObject();
+            ObjectId obj = new ObjectId(id);
+        	query.put(DatabaseTags.TAG_MOVIE_ID, obj );
+			return findByQuery(query, ret);
+		} catch (Exception e) {
+			return false;
+		}
     }
 }

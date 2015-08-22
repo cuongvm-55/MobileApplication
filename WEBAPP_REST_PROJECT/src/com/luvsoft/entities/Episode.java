@@ -16,12 +16,7 @@ public class Episode extends AbstractEntity {
     }
 
     public Episode(DBObject dbobject) {
-        id = dbobject.get(DatabaseTags.TAG_ID).toString();
-        order = Integer.valueOf(dbobject.get(DatabaseTags.TAG_ORDER).toString());
-        resource = dbobject.get(DatabaseTags.TAG_RESOURCE).toString();
-        link = dbobject.get(DatabaseTags.TAG_LINK).toString();
-        quality = dbobject.get(DatabaseTags.TAG_QUALITY).toString();
-        movieId = dbobject.get(DatabaseTags.TAG_MOVIE_ID).toString();
+    	setObject(dbobject);
     }
 
     public String getId() {
@@ -71,4 +66,22 @@ public class Episode extends AbstractEntity {
     public void setMovieId(String movie_id) {
         this.movieId = movie_id;
     }
+
+	@Override
+	public String toString() {
+		return "Episode [id=" + id + ", order=" + order + ", resource="
+				+ resource + ", link=" + link + ", quality=" + quality
+				+ ", movieId=" + movieId + "]";
+	}
+
+	@Override
+	public void setObject(DBObject dbobject) {
+		id = dbobject.get(DatabaseTags.TAG_ID).toString();
+        order = Integer.valueOf(dbobject.get(DatabaseTags.TAG_ORDER).toString());
+        resource = dbobject.get(DatabaseTags.TAG_RESOURCE).toString();
+        link = dbobject.get(DatabaseTags.TAG_LINK).toString();
+        quality = dbobject.get(DatabaseTags.TAG_QUALITY).toString();
+        movieId = dbobject.get(DatabaseTags.TAG_MOVIE_ID).toString();
+	}
+	
 }

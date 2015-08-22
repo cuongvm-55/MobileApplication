@@ -8,4 +8,6 @@ public abstract class AbstractEntity {
 
     public AbstractEntity() {
     }
+    
+    public abstract void setObject(DBObject dbobject);
 }

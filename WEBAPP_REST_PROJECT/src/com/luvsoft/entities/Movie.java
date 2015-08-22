@@ -18,14 +18,7 @@ public class Movie extends AbstractEntity {
     }
 
     public Movie(DBObject dbobject) {
-        id = dbobject.get(DatabaseTags.TAG_ID).toString();
-        name = dbobject.get(DatabaseTags.TAG_NAME).toString();
-        director = dbobject.get(DatabaseTags.TAG_DIRECTOR).toString();
-        actor = dbobject.get(DatabaseTags.TAG_ACTOR).toString();
-        year = dbobject.get(DatabaseTags.TAG_YEAR).toString();
-        status = dbobject.get(DatabaseTags.TAG_STATUS).toString();
-        thumbnail = dbobject.get(DatabaseTags.TAG_THUMBNAIL).toString();
-        description = dbobject.get(DatabaseTags.TAG_DESCRIPTION).toString();
+    	setObject(dbobject);
     }
 
     public String getDirector() {
@@ -91,4 +84,24 @@ public class Movie extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+	@Override
+	public String toString() {
+		return "Movie [id=" + id + ", name=" + name + ", director=" + director
+				+ ", actor=" + actor + ", year=" + year + ", status=" + status
+				+ ", thumbnail=" + thumbnail + ", description=" + description
+				+ "]";
+	}
+	
+	@Override
+	public void setObject(DBObject dbobject) {
+		id = dbobject.get(DatabaseTags.TAG_ID).toString();
+        name = dbobject.get(DatabaseTags.TAG_NAME).toString();
+        director = dbobject.get(DatabaseTags.TAG_DIRECTOR).toString();
+        actor = dbobject.get(DatabaseTags.TAG_ACTOR).toString();
+        year = dbobject.get(DatabaseTags.TAG_YEAR).toString();
+        status = dbobject.get(DatabaseTags.TAG_STATUS).toString();
+        thumbnail = dbobject.get(DatabaseTags.TAG_THUMBNAIL).toString();
+        description = dbobject.get(DatabaseTags.TAG_DESCRIPTION).toString();
+	}
 }

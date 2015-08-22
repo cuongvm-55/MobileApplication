@@ -21,19 +21,33 @@ public abstract class AbstractFacade {
     // ///////////////////////////////////////////////////////////
     @SuppressWarnings("unchecked")
 	public <T extends AbstractEntity> boolean findAll(List<T> retList) {
-        DBCollection collection = MongoDBConnection.getInstance().getDB().getCollection(getCollectionName());
+    	MongoDBConnection dbConnection = MongoDBConnection.getInstance();
+    	if( dbConnection.getDB() == null )
+    	{
+    		System.err.printf("Cannot get Database...");
+        	return false;		
+    	}
+    	
+    	DBCollection collection = dbConnection.getDB().getCollection(getCollectionName());
         if( collection == null )
         {
-        	System.out.printf("Collection is NULL: %s", getCollectionName());
+        	System.err.printf("Collection is NULL: %s", getCollectionName());
         	return false;
         }
-        DBCursor cursor = collection.find();
-        List<T> list = new ArrayList<T>();
-        while (cursor.hasNext()) {
-            list.add((T) mapObject(cursor.next()));
+        if( retList == null )
+        {
+        	retList = new ArrayList<T>();
         }
-        retList = list;
-        return true;
+        try{	
+	        DBCursor cursor = collection.find();
+	        while (cursor.hasNext()) {
+	        	retList.add((T) mapObject(cursor.next()));
+	        }
+	        return true;
+        }catch(Exception e)
+        {
+        	return false;
+        }
     }
 
     // ///////////////////////////////////////////////////////////
@@ -41,25 +55,34 @@ public abstract class AbstractFacade {
     // !
     // ! @return An Object in the collection who has the Id
     // ///////////////////////////////////////////////////////////
-    @SuppressWarnings("unchecked")
 	public <T extends AbstractEntity> boolean findById(String id, T retobject) {
-        DBCollection collection = MongoDBConnection.getInstance().getDB().getCollection(getCollectionName());
+    	MongoDBConnection dbConnection = MongoDBConnection.getInstance();
+    	if( dbConnection.getDB() == null )
+    	{
+    		System.out.printf("Cannot get Database...");
+        	return false;		
+    	}
+    	
+    	DBCollection collection = dbConnection.getDB().getCollection(getCollectionName());
         if( collection == null )
         {
         	System.out.printf("Collection is NULL: %s", getCollectionName());
         	return false;
         }
-        BasicDBObject query = new BasicDBObject();
-        query.put(DatabaseTags.TAG_ID, new ObjectId(id));
-        DBObject dbobj = collection.findOne(query);
-        if( dbobj != null )
-        {
-        	T object = (T) mapObject(dbobj);
-        	retobject = object;
-        	return true;
-        }
         
-        return false;
+        try{
+	        BasicDBObject query = new BasicDBObject();
+	        query.put(DatabaseTags.TAG_ID, new ObjectId(id));
+	        DBObject dbobj = collection.findOne(query);
+	        if( dbobj != null )
+	        {
+	        	retobject.setObject(dbobj);
+	        	return true;
+	        }
+	        return false;
+        }catch(Exception e){
+        	return false;
+        }
     }
 
     // ///////////////////////////////////////////////////////////
@@ -68,7 +91,7 @@ public abstract class AbstractFacade {
     // ! @return ArrayList list of documents in this collection
     // ///////////////////////////////////////////////////////////
     @SuppressWarnings("unchecked")
-	public <T extends AbstractEntity> boolean findByQuery(BasicDBObject query, List<T> retList) {
+	public <T extends AbstractEntity> boolean findByQuery(BasicDBObject query, List<T> retList) throws Exception{
     	MongoDBConnection dbConnection = MongoDBConnection.getInstance();
     	if( dbConnection.getDB() == null )
     	{
@@ -81,16 +104,28 @@ public abstract class AbstractFacade {
         	System.out.printf("Collection is NULL: %s", getCollectionName());
         	return false;
         }
-        DBCursor cursor = collection.find(query);
-        List<T> list = new ArrayList<T>();
-        while (cursor.hasNext()) {
-            list.add((T) mapObject(cursor.next()));
+        if( retList == null )
+        {
+        	retList = new ArrayList<T>();
         }
-        retList = list;
-        return true;
+        try{
+	        DBCursor cursor = collection.find(query);
+	        while (cursor.hasNext()) {
+	        	retList.add((T) mapObject(cursor.next()));
+	        }
+	        return true;
+        }catch(Exception e){
+        	return false;
+        }   
     }
 
     public abstract String getCollectionName();
 
     public abstract AbstractEntity mapObject(DBObject dbobject);
+    
+    public boolean mapObject(AbstractEntity entity, DBObject dbobject)
+    {
+    	entity.setObject(dbobject);
+    	return true;
+    }
 }
