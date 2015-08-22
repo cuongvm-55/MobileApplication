@@ -1,6 +1,7 @@
 package com.luvsoft.entities;
 
 import com.mongodb.DBObject;
+import com.luvsoft.utils.*;
 
 public class Movie extends AbstractEntity {
 
@@ -17,14 +18,14 @@ public class Movie extends AbstractEntity {
     }
 
     public Movie(DBObject dbobject) {
-        id = dbobject.get("_id").toString();
-        name = dbobject.get("Name").toString();
-        director = dbobject.get("Director").toString();
-        actor = dbobject.get("Actor").toString();
-        year = dbobject.get("Year").toString();
-        status = dbobject.get("Status").toString();
-        thumbnail = dbobject.get("Thumbnail").toString();
-        description = dbobject.get("Description").toString();
+        id = dbobject.get(DatabaseTags.TAG_ID).toString();
+        name = dbobject.get(DatabaseTags.TAG_NAME).toString();
+        director = dbobject.get(DatabaseTags.TAG_DIRECTOR).toString();
+        actor = dbobject.get(DatabaseTags.TAG_ACTOR).toString();
+        year = dbobject.get(DatabaseTags.TAG_YEAR).toString();
+        status = dbobject.get(DatabaseTags.TAG_STATUS).toString();
+        thumbnail = dbobject.get(DatabaseTags.TAG_THUMBNAIL).toString();
+        description = dbobject.get(DatabaseTags.TAG_DESCRIPTION).toString();
     }
 
     public String getDirector() {

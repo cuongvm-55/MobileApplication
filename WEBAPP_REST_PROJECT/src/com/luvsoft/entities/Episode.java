@@ -1,5 +1,6 @@
 package com.luvsoft.entities;
 
+import com.luvsoft.utils.DatabaseTags;
 import com.mongodb.DBObject;
 
 public class Episode extends AbstractEntity {
@@ -8,19 +9,19 @@ public class Episode extends AbstractEntity {
     private String resource;
     private String link;
     private String quality;
-    private String movie_id;
+    private String movieId;
 
     public Episode() {
 
     }
 
     public Episode(DBObject dbobject) {
-        id = dbobject.get("_id").toString();
-        order = Integer.valueOf(dbobject.get("Order").toString());
-        resource = dbobject.get("Resource").toString();
-        link = dbobject.get("Link").toString();
-        quality = dbobject.get("Quality").toString();
-        movie_id = dbobject.get("Movie_id").toString();
+        id = dbobject.get(DatabaseTags.TAG_ID).toString();
+        order = Integer.valueOf(dbobject.get(DatabaseTags.TAG_ORDER).toString());
+        resource = dbobject.get(DatabaseTags.TAG_RESOURCE).toString();
+        link = dbobject.get(DatabaseTags.TAG_LINK).toString();
+        quality = dbobject.get(DatabaseTags.TAG_QUALITY).toString();
+        movieId = dbobject.get(DatabaseTags.TAG_MOVIE_ID).toString();
     }
 
     public String getId() {
@@ -63,11 +64,11 @@ public class Episode extends AbstractEntity {
         this.quality = quality;
     }
 
-    public String getMovie_id() {
-        return movie_id;
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setMovie_id(String movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieId(String movie_id) {
+        this.movieId = movie_id;
     }
 }

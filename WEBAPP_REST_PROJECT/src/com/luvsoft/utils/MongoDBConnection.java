@@ -7,26 +7,41 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
 public class MongoDBConnection {
-    public static MongoClient mongoClient;
-    public static DB database;
-
-    private static final String MONGOCONNECTION_MONGOLAB = "mongodb://test:test@ds041992.mongolab.com:41992/test_database";
-    private static final String MONGOCONNECTION_LOCALHOST = "mongodb://localhost:27017/moviedb";
-
+	private static MongoDBConnection instance;
+    private static MongoClient mongoClient;
+    private static DB database;
+    
     /*
      * @name connectMongoDB function
      */
     public void connectMongoDB() {
-        try {
-            MongoClientURI uri = new MongoClientURI(MONGOCONNECTION_LOCALHOST);
+        try{
+            MongoClientURI uri = new MongoClientURI(DatabaseTags.MONGOCONNECTION_LOCALHOST);
             mongoClient = new MongoClient(uri);
             database = mongoClient.getDB(uri.getDatabase());
-            if (database != null) {
-                System.out.println("Connected to MongoDB successfully!....");
+            if( database == null ){
+                System.out.println("Cannot connect to MongoDB!....");
+                System.out.println("URL: " + DatabaseTags.MONGOCONNECTION_LOCALHOST);              
             }
-        } catch (UnknownHostException e) {
+        }catch( UnknownHostException e ){
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+    
+    public static MongoDBConnection getInstance(){
+    	if( instance == null ){
+    		instance = new MongoDBConnection();
+    		instance.connectMongoDB();
+    	}
+    	return instance;
+    }
+    
+    public MongoClient getMongoClient(){
+    	return mongoClient;
+    }
+    
+    public DB getDB(){
+    	return database;
     }
 }
