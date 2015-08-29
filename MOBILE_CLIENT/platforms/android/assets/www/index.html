@@ -32,126 +32,42 @@
         <link rel="stylesheet" href="themes/movietheme.min.css" />
         <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/application.js"></script>
         <script type="text/javascript" src="js/jquery-1.11.2.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
+        <script>
+            $(document).on("deviceready", Application.initApplication);
+        </script>
     </head>
     <body>
         <div data-role="page" data-theme="a" id="demo-page" class="my-page">
-            <div data-role="panel" id="leftpanel" data-position-fixed="true">
+            <div data-role="panel" id="leftpanel" class="my-leftpanel" data-position-fixed="true">
                 <div id="logo-area"></div>
-                <button class="ui-btn">Trang Chủ</button>
-                <button class="ui-btn">Quản Lý Tài Khoản</button>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-home-page"><p>Trang Chủ</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-account"><p>Quản Lý Tài Khoản</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-favorite"><p>Phim Của Tôi</p></a>
+                <div style="height: 3px; background-color: #16A085;"></div>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Clip Hài</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Mới Nhất</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Được Yêu Thích</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Hài Việt Nam</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Hài Châu Tinh Trì</p></a>
+                <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Hài Hoài Linh</p></a>
             </div>
 
-            <div data-role="header" data-position="fixed">
-                <a class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-grid ui-btn-icon-notext ui-shadow" href="#leftpanel"></a>
+            <div data-role="header" data-position="fixed" id="my-header">
+                <a id="menubutton" class="ui-btn-left ui-btn-corner-all ui-btn ui-icon-grid ui-btn-icon-notext ui-shadow" href="#leftpanel"></a>
                 <h2>Châu Tinh Trì</h2>
-                <a href="#search-button" class="ui-btn-right ui-btn ui-icon-search ui-btn-icon-notext ui-shadow ui-corner-all"> </a>
+                <a id="searchbutton" href="#search-button" class="ui-btn-right ui-btn ui-icon-search ui-btn-icon-notext ui-shadow ui-corner-all"> </a>
+                <div id="searchparentform" style="display: none">
+                    <input type="search" data-mini="true" name="search" id="searchform" placeholder="Tìm Kiếm"/>
+                </div>
             </div> <!-- /header -->
 
-            <div role="main" class="ui-content">
-                <ul data-role="listview" data-inset="true">
-                    <li><a href="#">
-                        <img src="img/quocsan007.jpg" class="ui-li-thumb" />
-                        <h2>Điệp Viên 007</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">HD</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tantayduky.jpg" class="ui-li-thumb" />
-                        <h2>Tân Tây Du Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">TS</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/than-bai-1.jpg" class="ui-li-thumb" />
-                        <h2>Thần Bài 2</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">HD</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/than-bai-1.jpg" class="ui-li-thumb" />
-                        <h2>Thần Bài 2</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">HD</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tantayduky.jpg" class="ui-li-thumb" />
-                        <h2>Tân Tây Du Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">TS</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tantayduky.jpg" class="ui-li-thumb" />
-                        <h2>Tân Tây Du Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">TS</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                    <li><a href="#">
-                        <img src="img/tanlocdinhkychautinhtri.jpg" class="ui-li-thumb" />
-                        <h2>Tân Lộc Đỉnh Ký</h2>
-                        <h3>Châu Tinh Trì</h3>
-                        <p>90 phút</p>
-                        <p class="ui-li-aside">CAM</p>
-                    </a></li>
-                </ul>
-            </div><!-- /content -->
+            <div role="main" class="ui-content" id="movie-content">
+
+
+            </div> <!-- content -->
 
         </div> <!-- /page -->
     </body>

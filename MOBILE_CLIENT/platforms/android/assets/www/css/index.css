@@ -44,6 +44,69 @@ body {
     width:100%;
 }
 
+/* General css */
+/*-------------- CSS for header --------------*/
+#my-header {
+	height: 55px;
+	display:flex;
+	justify-content: center !important;
+	align-items: center !important;
+}
+
+#searchbutton {
+	margin-top: 7px;
+}
+
+#menubutton {
+	margin-top: 7px;
+}
+
+#searchparentform {
+   width: 80%;
+}
+
+.ui-title {
+   margin: 0 0% !important;
+   font-size: 1.5em !important;
+}
+
+/*----------------- CSS for left panel ------------------*/
+.ui-panel-inner {
+   padding: 0 !important;
+}
+
+#logo-area {
+	background-color: #16A085;
+	min-height: 3.55em;
+}
+
+.my-page .my-leftpanel .ui-panel-inner a {
+   font-size: 1.25em;
+   background-color: #ffffff;
+   border-color: #ffffff;
+   color: #16A085;
+   width: 70%;
+   text-align: left;
+}
+
+.my-page .my-leftpanel .ui-panel-inner a:hover {
+	-moz-box-shadow: 0px 0px 12px #16A085;
+   -webkit-box-shadow: 0px 0px 12px #16A085;
+   box-shadow: 0px 0px 12px #16A085;
+}
+
+.my-page .my-leftpanel .ui-panel-inner .ui-btn-icon-left:after {
+   background-color: #ffffff;
+   top: 5% !important;
+   margin-top: 0 !important;
+   height: 50px !important;
+   width: 50px !important;
+}
+
+.my-page .my-leftpanel .ui-panel-inner p {
+   margin: 0 10%
+}
+
 /* A bit custom styling */
 .my-page .ui-listview li .ui-btn p {
 	color: #c0c0c0;
@@ -74,6 +137,12 @@ body {
 		max-width: 100% !important;
 		max-height: none !important;
 	}
+
+	.my-page .ui-listview li.ui-li-has-thumb a {
+    		border-color: #ffffff !important;
+    		background-color: #ffffff !important;
+    }
+
 	/* Make all list items and anchors inherit the border-radius from the UL. */
 	.my-page .ui-listview li,
 	.my-page .ui-listview li .ui-btn,
@@ -87,8 +156,8 @@ body {
 	}
 	/* Make text wrap. */
 	.my-page .ui-listview h2,
-	.my-page .ui-listview h3,
-	.my-page .ui-listview p {
+	.my-page .ui-listview .movie-description,
+	.my-page .ui-listview .ui-li-aside {
 		white-space: normal;
 		overflow: visible;
 		position: absolute;
@@ -98,43 +167,43 @@ body {
 	/* Text position */
 	.my-page .ui-listview h2 {
 		color: #16A085;
-		font-size: 1.25em;
+		font-size: 1.3em;
+		text-shadow: 0px 1px 0px #293f32;
 		margin: 0;
-		padding: 0.3em 0.3em;
+		padding: 0.3em 0.43em;
 		bottom: 50%;
 	}
 
 	.my-page .ui-listview h3 {
-    	color: #ffffff;
-    	font-size: 0.95em;
-    	margin: 0;
-    	padding: 0.3em 0.3em;
-    	bottom: 20%;
-    }
-
-	.my-page .ui-listview p {
-	    color: #41624f;
+		color: #ffffff;
 		font-size: 0.95em;
 		margin: 0;
-		padding: 0 0.3em;
-		min-height: 30%;
-		bottom: 0%;
+		padding: 0.5em 0.6em;
+	}
+
+	.my-page .ui-listview p {
+		color: #41624f;
+		font-size: 0.95em;
+		margin: 0;
+		padding: 0 0.6em;
+	}
+
+	.my-page .ui-listview .movie-description {
+		height: 30%;
+		bottom: 0;
 	}
 	/* Semi transparent background and different position if there is a thumb. The button has overflow hidden so we don't need to set border-radius. */
 	.ui-listview .ui-li-has-thumb h2,
-	.ui-listview .ui-li-has-thumb h3,
-	.ui-listview .ui-li-has-thumb p {
+	.my-page .ui-listview .movie-description {
 		background: #111;
 		background: rgba(0,0,0,.8);
 	}
 	.ui-listview .ui-li-has-thumb h2 {
-		bottom: 34%;
+		bottom: 35%;
 	}
-	.ui-listview .ui-li-has-thumb h3 {
-        min-height: 10%;
-    }
-	.ui-listview .ui-li-has-thumb p {
-		min-height: 20%;
+
+	.my-page .ui-listview .movie-description {
+		min-height: 35%;
 	}
 	/* ui-li-aside has class .ui-li-desc as well so we have to override some things. */
 	.my-page .ui-listview .ui-li-aside {
@@ -185,7 +254,7 @@ body {
 	/* Set a max-width for the last breakpoint to prevent too much stretching on large screens.
 	By setting the max-width equal to the breakpoint width minus padding we keep square tiles. */
 	.my-page .ui-listview {
-		max-width: 59em; /* 1000px */
+		max-width: 100%; /* 1000px */
 		margin: 0 auto;
 	}
 	/* Because of the 1000px max-width the width will always be 230px (and margin left/right 10px),
@@ -197,13 +266,29 @@ body {
 	}
 }
 
-/*Left Panel Style*/
-#leftpanel {
-	padding: 0px;
+/*-------------- Icon customization ------------*/
+.ui-icon-home-page:after {
+   background-image: url("../img/ui-icon-home-page.png");
+   background-size: 50px 50px;
 }
 
-#logo-area {
-	background-color: #16A085;
-	min-height: 5em;
+.ui-icon-account:after {
+   background-image: url("../img/ui-icon-account.png");
+   background-size: 50px 50px;
 }
 
+.ui-icon-movie:after {
+   background-image: url("../img/ui-icon-movie.png");
+   background-size: 50px 50px;
+}
+
+.ui-icon-favorite::after {
+   background-image: url("../img/ui-icon-favorite.png");
+   background-size: 50px 50px;
+}
+
+/*---------------------- Movie Frame ----------------------*/
+.ui-movie-frame {
+	width: 100%;
+	height: 20em;
+}
