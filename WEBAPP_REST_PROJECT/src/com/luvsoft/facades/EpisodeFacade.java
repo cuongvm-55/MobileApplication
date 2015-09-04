@@ -2,8 +2,6 @@ package com.luvsoft.facades;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
-
 import com.luvsoft.entities.Episode;
 import com.luvsoft.utils.DatabaseTags;
 import com.mongodb.BasicDBObject;
@@ -12,7 +10,7 @@ import com.mongodb.DBObject;
 public class EpisodeFacade extends AbstractFacade {
     @Override
     public String getCollectionName() {
-        return DatabaseTags.EPISODE_COLLECTION_NAME;
+        return DatabaseTags.COLLECTION_NAME_EPISODE;
     }
 
     @Override
@@ -23,9 +21,7 @@ public class EpisodeFacade extends AbstractFacade {
 
     public boolean getEpisodeByMovieId(String id, List<Episode> ret) {
         try {
-        	BasicDBObject query = new BasicDBObject();
-            ObjectId obj = new ObjectId(id);
-        	query.put(DatabaseTags.TAG_MOVIE_ID, obj );
+        	BasicDBObject query = new BasicDBObject(DatabaseTags.TAG_MOVIE_ID, id );
 			return findByQuery(query, ret);
 		} catch (Exception e) {
 			return false;

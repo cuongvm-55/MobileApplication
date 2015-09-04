@@ -7,7 +7,7 @@ import com.mongodb.DBObject;
 public class MovieFacade extends AbstractFacade {
     @Override
     public String getCollectionName() {
-        return DatabaseTags.MOVIE_COLLECTION_NAME;
+        return DatabaseTags.COLLECTION_NAME_MOVIE;
     }
 
     @Override

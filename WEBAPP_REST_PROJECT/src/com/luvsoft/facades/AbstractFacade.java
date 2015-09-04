@@ -3,8 +3,6 @@ package com.luvsoft.facades;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bson.types.ObjectId;
-
 import com.luvsoft.entities.AbstractEntity;
 import com.luvsoft.utils.DatabaseTags;
 import com.luvsoft.utils.MongoDBConnection;
@@ -71,8 +69,7 @@ public abstract class AbstractFacade {
         }
         
         try{
-	        BasicDBObject query = new BasicDBObject();
-	        query.put(DatabaseTags.TAG_ID, new ObjectId(id));
+	        BasicDBObject query = new BasicDBObject(DatabaseTags.TAG_ID, id);
 	        DBObject dbobj = collection.findOne(query);
 	        if( dbobj != null )
 	        {
@@ -115,10 +112,30 @@ public abstract class AbstractFacade {
 	        }
 	        return true;
         }catch(Exception e){
+        	e.printStackTrace();
         	return false;
         }   
     }
-
+    
+    public <T extends AbstractEntity> boolean save(BasicDBObject object){
+    	MongoDBConnection dbConnection = MongoDBConnection.getInstance();
+    	if( dbConnection.getDB() == null )
+    	{
+    		System.out.printf("Cannot get Database...");
+        	return false;		
+    	}
+    	DBCollection collection = dbConnection.getDB().getCollection(getCollectionName());
+        if( collection == null )
+        {
+        	System.out.printf("Collection is NULL: %s", getCollectionName());
+        	return false;
+        }
+        
+        collection.insert(object);
+        
+    	return true;
+    }
+    
     public abstract String getCollectionName();
 
     public abstract AbstractEntity mapObject(DBObject dbobject);
