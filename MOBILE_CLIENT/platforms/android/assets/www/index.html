@@ -44,7 +44,7 @@
             <div data-role="panel" id="leftpanel" class="my-leftpanel" data-position-fixed="true">
                 <div id="logo-area"></div>
                 <a href="#" class="ui-btn ui-btn-icon-left ui-icon-home-page"><p>Trang Chủ</p></a>
-				<a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-btn-icon-left ui-icon-account ui-corner-all"><p>Quản Lý Tài Khoản</p></a>
+                <a href="#popupLogin" data-rel="popup" class="ui-btn ui-btn-icon-left ui-icon-account"><p>Quản Lý Tài Khoản</p></a>
                 <a href="#" class="ui-btn ui-btn-icon-left ui-icon-favorite"><p>Phim Của Tôi</p></a>
                 <div style="height: 3px; background-color: #16A085;"></div>
                 <a href="#" class="ui-btn ui-btn-icon-left ui-icon-movie"><p>Clip Hài</p></a>
@@ -68,25 +68,33 @@
 
 
             </div> <!-- content -->
-			
-    
-			<div data-role="popup" id="myPopup">
-				<form>
-				<center><h4>Welcome to movie community</h4></center>
-					<table>
-						<tr>
-							<td>Username</td>
-							<td><input type="text" data-clear-btn="true" name="username" maxlength="32"></td>
-						</tr>
-						<tr>
-							<td>Password</td>
-							<td><input type="password" data-clear-btn="true" name="password" maxlength="32"></td>
-						</tr>
-					</table>
-					<input type="submit" name="lgBtn" value="Login">
-				</form>
-			</div>
+
+            <div data-role="popup" data-transition="slideup" data-position-to="window" id="popupLogin" data-theme="a" class="ui-corner-all ui-popup ui-body-a ui-overlay-shadow" >
+                <form id="loginForm">
+                    <div style="padding:10px 20px;background-color: #white;color: #333333">
+                        <h3>Xin chào!</h3>
+                        <input type="text" name="username" id="username" value="" placeholder="username" data-theme="a" required  data-clear-btn="true" >
+                        <input type="password" name="password" id="password" value="" placeholder="password" required data-clear-btn="true" data-theme="a" >
+
+                        <button data-theme="b" id="loginBtn" class="ui-btn-hidden" aria-disabled="false">Đăng nhập</button>
+                        <button data-theme="b" id="registerBtn" class="ui-btn-hidden" aria-disabled="false">Đăng kí</button>
+                    </div>
+                </form>
+            </div>
 
         </div> <!-- /page -->
     </body>
+    <script>
+        $('#loginBtn').click( function() {
+            $.ajax({
+                url: 'http://cuongvm-55.jelastic.servint.net/rest/accountingservice/login',
+                type: 'post',
+                dataType: 'json',
+                data: $('#loginForm').serialize(),
+                success: function(data) {
+                       alert("SUCCESS");
+                }
+            });
+        });
+    </script>
 </html>
