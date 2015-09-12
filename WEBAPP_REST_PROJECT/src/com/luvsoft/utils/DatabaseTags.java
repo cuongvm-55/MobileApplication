@@ -11,7 +11,7 @@ public class DatabaseTags {
 	public static final String TAG_NAME = "Name";
 	
 	// Movie
-	public static final String COLLECTION_NAME_MOVIE = "Movie";
+	public static final String COLLECTION_NAME_MOVIE = "Movies";
 
 	public static final String TAG_DIRECTOR = "Director";
 	public static final String TAG_ACTOR = "Actor";
@@ -28,6 +28,8 @@ public class DatabaseTags {
 	public static final String TAG_LINK = "Link";
 	public static final String TAG_QUALITY = "Quality";
 	public static final String TAG_MOVIE_ID = "Movie_id";
+	public static final String TAG_NUMBEROFLIKE = "NumberOfLike";
+	public static final String TAG_REPORT = "Report";
 	
 	// User
 	public static final String COLLECTION_NAME_USER = "User";

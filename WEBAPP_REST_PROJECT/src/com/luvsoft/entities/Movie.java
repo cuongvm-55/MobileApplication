@@ -13,6 +13,8 @@ public class Movie extends AbstractEntity {
     private String status;
     private String thumbnail;
     private String description;
+    private String numberOfLike;
+    private String report;
 
     public Movie() {
     }
@@ -84,6 +86,22 @@ public class Movie extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+	public String getNumberOfLike() {
+		return numberOfLike;
+	}
+
+	public void setNumberOfLike(String numberOfLike) {
+		this.numberOfLike = numberOfLike;
+	}
+
+	public String getReport() {
+		return report;
+	}
+
+	public void setReport(String report) {
+		this.report = report;
+	}
 
 	@Override
 	public String toString() {

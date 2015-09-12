@@ -3,7 +3,6 @@ package com.luvsoft.facades;
 import java.util.List;
 
 import com.luvsoft.entities.Favorite;
-import com.luvsoft.entities.Movie;
 import com.luvsoft.utils.DatabaseTags;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
