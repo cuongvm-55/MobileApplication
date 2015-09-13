@@ -57,6 +57,7 @@ public class UserFacade extends AbstractFacade{
     		return save(query);
     	}catch(Exception e)
     	{
+    		e.printStackTrace();
     		return false;
     	}
     }

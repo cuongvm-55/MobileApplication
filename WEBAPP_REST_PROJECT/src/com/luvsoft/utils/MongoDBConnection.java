@@ -16,12 +16,12 @@ public class MongoDBConnection {
      */
     public void connectMongoDB() {
         try{
-            MongoClientURI uri = new MongoClientURI(DatabaseTags.MONGOCONNECTION_LOCALHOST);
+            MongoClientURI uri = new MongoClientURI(DatabaseTags.MONGOCONNECTION_MONGOLAB);
             mongoClient = new MongoClient(uri);
             database = mongoClient.getDB(uri.getDatabase());
             if( database == null ){
                 System.out.println("Cannot connect to MongoDB!....");
-                System.out.println("URL: " + DatabaseTags.MONGOCONNECTION_LOCALHOST);              
+                System.out.println("URL: " + DatabaseTags.MONGOCONNECTION_MONGOLAB);              
             }
         }catch( UnknownHostException e ){
             // TODO Auto-generated catch block

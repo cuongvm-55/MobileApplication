@@ -3,7 +3,7 @@ package com.luvsoft.utils;
 public class DatabaseTags {
 	
 	// Database URLs
-	public static final String MONGOCONNECTION_MONGOLAB = "mongodb://test:test@ds041992.mongolab.com:41992/test_database";
+	public static final String MONGOCONNECTION_MONGOLAB = "mongodb://root:root@ds041992.mongolab.com:41992/test_database";
     public static final String MONGOCONNECTION_LOCALHOST = "mongodb://localhost:27017/moviedb";
 	
     // Tags
@@ -36,10 +36,11 @@ public class DatabaseTags {
 	public static final String TAG_USERNAME = "Username";
 	public static final String TAG_PASSWORD = "Password";
 	public static final String TAG_AGE = "Age";
-	public static final String TAG_USER_ID = "User_id";
-	
+
 	// History
 	public static final String COLLECTION_NAME_HISTORY = "History";
+	public static final String TAG_USER_ID = "UserId";
+	public static final String TAG_USER_MOVIE_ID = "MovieId";
 	
 	// Favorite
 	public static final String COLLECTION_NAME_FAVORITE = "Favorite";

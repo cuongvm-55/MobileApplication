@@ -15,14 +15,14 @@ public class History extends AbstractEntity{
 	public History(DBObject dbobject){
 		id = dbobject.get(DatabaseTags.TAG_ID).toString();
 		userId = dbobject.get(DatabaseTags.TAG_USER_ID).toString();
-		movieId = dbobject.get(DatabaseTags.TAG_MOVIE_ID).toString();
+		movieId = dbobject.get(DatabaseTags.TAG_USER_MOVIE_ID).toString();
 	}
 
 	@Override
 	public void setObject(DBObject dbobject){
 		id = dbobject.get(DatabaseTags.TAG_ID).toString();
 		userId = dbobject.get(DatabaseTags.TAG_USER_ID).toString();
-		movieId = dbobject.get(DatabaseTags.TAG_MOVIE_ID).toString();
+		movieId = dbobject.get(DatabaseTags.TAG_USER_MOVIE_ID).toString();
 	}
 	
 	@Override

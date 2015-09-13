@@ -100,17 +100,17 @@ public class MovieService {
         else
         {
 	        for (Movie movie : list) {
-	            JSONObject jsonobject = new JSONObject();
-	            jsonobject.put("ID", movie.getId());
-	            jsonobject.put("NAME", movie.getName());
-	            jsonobject.put("DIRECTOR", movie.getDirector());
-	            jsonobject.put("ACTOR", movie.getActor());
-	            jsonobject.put("YEAR", movie.getYear());
-	            jsonobject.put("STATUS", movie.getStatus());
-	            jsonobject.put("THUMBNAIL", movie.getThumbnail());
-	            jsonobject.put("DESCRIPTION", movie.getDescription());
-	            jsonobject.put("NUMBEROFLIKE", movie.getNumberOfLike());
-	            jsonobject.put("REPORT", movie.getReport());
+	            JSONObject jsonobject = new JSONObject(movie);
+//	            jsonobject.put("ID", movie.getId());
+//	            jsonobject.put("NAME", movie.getName());
+//	            jsonobject.put("DIRECTOR", movie.getDirector());
+//	            jsonobject.put("ACTOR", movie.getActor());
+//	            jsonobject.put("YEAR", movie.getYear());
+//	            jsonobject.put("STATUS", movie.getStatus());
+//	            jsonobject.put("THUMBNAIL", movie.getThumbnail());
+//	            jsonobject.put("DESCRIPTION", movie.getDescription());
+//	            jsonobject.put("NUMBEROFLIKE", movie.getNumberOfLike());
+//	            jsonobject.put("REPORT", movie.getReport());
 	            ja.put(jsonobject);
 	        }
         }

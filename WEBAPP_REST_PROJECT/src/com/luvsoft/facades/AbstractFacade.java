@@ -3,6 +3,8 @@ package com.luvsoft.facades;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.luvsoft.entities.AbstractEntity;
 import com.luvsoft.utils.DatabaseTags;
 import com.luvsoft.utils.MongoDBConnection;
@@ -69,7 +71,7 @@ public abstract class AbstractFacade {
         }
         
         try{
-	        BasicDBObject query = new BasicDBObject(DatabaseTags.TAG_ID, id);
+	        BasicDBObject query = new BasicDBObject(DatabaseTags.TAG_ID, new ObjectId(id));
 	        DBObject dbobj = collection.findOne(query);
 	        if( dbobj != null )
 	        {
