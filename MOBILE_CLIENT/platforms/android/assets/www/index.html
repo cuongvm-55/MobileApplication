@@ -42,6 +42,7 @@
     <body>
         <div data-role="page" data-theme="a" id="demo-page" class="my-page">
             <div data-role="panel" id="leftpanel" class="my-leftpanel" data-position-fixed="true">
+                <div id="logo-area"></div>
                 <a href="#popupLogin" data-rel="popup" class="ui-btn ui-btn-icon-left ui-icon-account"><p>Đăng Nhập</p></a>
                 <div style="height: 3px; background-color: #16A085;"></div>
                 <a href="#" class="ui-btn ui-btn-icon-left ui-icon-home-page"><p>Trang Chủ</p></a>
@@ -78,8 +79,8 @@
                         <input type="text" name="username" id="username" value="" placeholder="username" data-theme="a" required  data-clear-btn="true" >
                         <input type="password" name="password" id="password" value="" placeholder="password" required data-clear-btn="true" data-theme="a" >
 
-                        <button data-theme="b" id="loginBtn" class="ui-btn-hidden" aria-disabled="false">Đăng nhập</button>
-                        <button data-theme="b" id="registerBtn" class="ui-btn-hidden" aria-disabled="false">Đăng kí</button>
+                        <button data-theme="a" id="loginBtn" class="ui-btn-hidden" aria-disabled="false">Đăng nhập</button>
+                        <button data-theme="a" id="registerBtn" class="ui-btn-hidden" aria-disabled="false">Đăng kí</button>
                     </div>
                 </form>
             </div>
@@ -88,15 +89,21 @@
     </body>
     <script>
         $('#loginBtn').click( function() {
-            $.ajax({
-                url: 'http://cuongvm-55.jelastic.servint.net/rest/accountingservice/login',
-                type: 'post',
-                dataType: 'json',
-                data: $('#loginForm').serialize(),
-                success: function(data) {
-                       alert("SUCCESS");
-                }
-            });
+            var username = $('#username').val();
+            var password = $('#password').val();
+            if(username != "" && password != "") {
+                $.ajax({
+                    url: 'http://cuongvm-55.jelastic.servint.net/rest/accountingservice/login',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: $('#loginForm').serialize(),
+                    success: function(data) {
+                           $.each(data, function(key, value) {
+                               alert("status " + value.STATUS);
+                           });
+                    }
+                });
+            }
         });
     </script>
 </html>

@@ -22,6 +22,9 @@ var LIST_MOVIE = [];
 var CURRENT_POINT = 0;
 var PAGE_NUMBER = 0;
 
+/////////////////////////////////////////////////////////////////////////////////////
+// Declare your objects at here
+/////////////////////////////////////////////////////////////////////////////////////
 function Movie() {
    this.id = "";
    this.name = "";
@@ -33,6 +36,9 @@ function Movie() {
    this.description = "";
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+// The main function
+/////////////////////////////////////////////////////////////////////////////////////
 var Application  = {
    initApplication: function() {
       getMovieListFromServerByPagination();
@@ -41,6 +47,7 @@ var Application  = {
       /* Back button listener */
       $(document).on("backbutton", function() {
          CURRENT_POINT = 0;
+         PAGE_NUMBER = 1;
          Application.initMovieList();
       });
    },
@@ -55,10 +62,6 @@ var Application  = {
             if ((scrollHeight - scrollPosition) / scrollHeight == 0) {
                console.log('You Hit Bottom!');
                getMovieListFromServerByPagination();
-               $("#movie-list").append(getListHTML());
-               $('.movie-button').click(function(){
-                  $("#movie-content").load("movie-details.html #movie-frame");
-               });
             }
          });
          $('.movie-button').click(function(){
@@ -67,115 +70,117 @@ var Application  = {
       });
    },
    initSearchButton: function() {
-       /* Show and hide the search form */
-       var showform = false;
-       var tempTitle = $(".ui-title").html();
-       $("#searchbutton").click(function(){
-           if( showform == false ) {
-               $("#searchparentform").show();
-               $(".ui-title").html("");
-               showform = true;
-           } else {
-               $("#searchparentform").hide();
-               $(".ui-title").html(tempTitle);
-               showform = false;
-           }
-       });
-    }
- };
+      /* Show and hide the search form */
+      var showform = false;
+      var tempTitle = $(".ui-title").html();
+      $("#searchbutton").click(function(){
+         if( showform == false ) {
+            $("#searchparentform").show();
+            $(".ui-title").html("");
+            showform = true;
+          } else {
+            $("#searchparentform").hide();
+            $(".ui-title").html(tempTitle);
+            showform = false;
+          }
+      });
+   }
+};
 
- /* Function to get the HTML for each item*/
- function getItemHTML(kindItem, movieItem) {
-    var itemHTML = "<li ";
-    switch(kindItem) {
-       case 1: /* This is the first child */
-          itemHTML += "class='ui-li-has-thumb ui-first-child'>";
-          break;
-       case 2: /* This is the last child */
-          itemHTML += "class='ui-li-has-thumb ui-last-child'>";
-          break;
-       default:
-          itemHTML += "class='ui-li-has-thumb'>";
-          break;
-    }
-    itemHTML += "<a class='movie-button ui-btn ui-btn-icon-right ui-icon-carat-r'>";
-    itemHTML += "<img src=" + "'" + movieItem.thumbnail + "'" + " class='ui-li-thumb' />";
-    itemHTML += "<h2>" + movieItem.name + "</h2>";
-    itemHTML += "<div class='movie-description'>";
-    itemHTML += "<h3>" + movieItem.actor + "</h3>";
-    itemHTML += "<p>" + "90 phut" + "</p>";
-    itemHTML += "</div>";
-    itemHTML += "<p class='ui-li-aside'>" + movieItem.status + "</p>";
-    itemHTML += "</a></li>";
+/* Function to get the HTML for each item*/
+function getItemHTML(kindItem, movieItem) {
+   var itemHTML = "<li ";
+   switch(kindItem) {
+      case 1: /* This is the first child */
+         itemHTML += "class='ui-li-has-thumb ui-first-child'>";
+         break;
+      case 2: /* This is the last child */
+         itemHTML += "class='ui-li-has-thumb ui-last-child'>";
+         break;
+      default:
+         itemHTML += "class='ui-li-has-thumb'>";
+         break;
+   }
+   itemHTML += "<a class='movie-button ui-btn ui-btn-icon-right ui-icon-carat-r'>";
+   itemHTML += "<img src=" + "'" + movieItem.thumbnail + "'" + " class='ui-li-thumb' />";
+   itemHTML += "<h2>" + movieItem.name + "</h2>";
+   itemHTML += "<div class='movie-description'>";
+   itemHTML += "<h3>" + movieItem.actor + "</h3>";
+   itemHTML += "<p>" + "90 phút" + "</p>";
+   itemHTML += "</div>";
+   itemHTML += "<p class='ui-li-aside'>" + movieItem.status + "</p>";
+   itemHTML += "</a></li>";
+   return itemHTML;
+}
 
-    return itemHTML;
- }
-
- /* Function to get the HTML for list of items */
- function getListHTML() {
-    var listHTML = "";
-
+/* Function to get the HTML for list of items */
+function getListHTML() {
+   var listHTML = "";
     if(LIST_MOVIE.length > 0 && CURRENT_POINT < LIST_MOVIE.length - 1) {
-       if( PAGE_NUMBER == 1 ) {
-          listHTML += getItemHTML(1, LIST_MOVIE[0]);
-       }
-
+      if( PAGE_NUMBER == 1 ) {
+         listHTML += getItemHTML(1, LIST_MOVIE[0]);
+      }
        for(var i=CURRENT_POINT + 1; i<LIST_MOVIE.length-1; ++i) {
-          listHTML += getItemHTML(3, LIST_MOVIE[i]);
-       }
-
-       listHTML += getItemHTML(2, LIST_MOVIE[LIST_MOVIE.length - 1]);
-       CURRENT_POINT = LIST_MOVIE.length - 1;
-    }
-    return listHTML;
- }
+         listHTML += getItemHTML(3, LIST_MOVIE[i]);
+      }
+      listHTML += getItemHTML(2, LIST_MOVIE[LIST_MOVIE.length - 1]);
+      CURRENT_POINT = LIST_MOVIE.length - 1;
+   }
+   return listHTML;
+}
 
 /* Loading message */
 function showLoadingMessage() {
-    $.mobile.loading( "show", {
-            text: "Loading ...",
-            textVisible: "true",
-            theme: $.mobile.loader.prototype.options.theme,
-            textonly: "false",
-            html: ""
-    });
+   $.mobile.loading( "show", {
+      text: "Đang tải ...",
+      textVisible: "true",
+      theme: $.mobile.loader.prototype.options.theme,
+      textOnly: "false",
+      html: ""
+   });
 }
 
 function hideLoadingMessage() {
    $.mobile.loading("hide");
 }
 
- function attachListMovie(jsondata) {
-    $.each(jsondata, function(key, value) {
-       console.log(value.ID);
-       var movieItem = new Movie();
-            movieItem.id = value.ID;
-            movieItem.name = value.NAME;
-            movieItem.director = value.DIRECTOR;
-            movieItem.actor = value.ACTOR;
-            movieItem.year = value.YEAR;
-            movieItem.status = value.STATUS;
-            movieItem.thumbnail = value.THUMBNAIL;
-            movieItem.description = value.DESCRIPTION;
+function attachListMovie(jsondata) {
+   $.each(jsondata, function(key, value) {
+      console.log(value.ID);
+      var movieItem = new Movie();
+      movieItem.id = value.ID;
+      movieItem.name = value.NAME;
+      movieItem.director = value.DIRECTOR;
+      movieItem.actor = value.ACTOR;
+      movieItem.year = value.YEAR;
+      movieItem.status = value.STATUS;
+      movieItem.thumbnail = value.THUMBNAIL;
+      movieItem.description = value.DESCRIPTION;
 
-            LIST_MOVIE.push(movieItem);
-    });
-    console.log(LIST_MOVIE.length);
- }
+      LIST_MOVIE.push(movieItem);
+   });
+   console.log(LIST_MOVIE.length);
+}
 
- function getMovieListFromServerByPagination() {
-      showLoadingMessage();
-      PAGE_NUMBER++;
-      $.ajax({
-           type: "GET",
-           url: ROOT_URL + "/" + PAGE_NUMBER,
-           datatype: "json",
-           success: function(jsondata) {
-               attachListMovie(jsondata);
-               hideLoadingMessage();
-               if(PAGE_NUMBER == 1) {
-                  Application.initMovieList();
-               }
-           }
-      });
- }
+function getMovieListFromServerByPagination() {
+   showLoadingMessage();
+   PAGE_NUMBER++;
+   $.ajax({
+      type: "GET",
+      url: ROOT_URL + "/" + PAGE_NUMBER,
+      datatype: "json",
+      success: function(jsondata) {
+         attachListMovie(jsondata);
+         hideLoadingMessage();
+         if(PAGE_NUMBER == 1) {
+            Application.initMovieList();
+         } else {
+            $("#movie-list").append(getListHTML());
+
+            $('.movie-button').click(function(){
+               $("#movie-content").load("movie-details.html #movie-frame");
+            });
+         }
+      }
+   });
+}
